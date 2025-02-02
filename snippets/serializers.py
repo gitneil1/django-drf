@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ['id', 'username', 'snippets']
 """
-
+"""
 class SnippetSerializerVerbose(serializers.Serializer):
 	id = serializers.IntegerField(read_only=True)
 	title = serializers.CharField(required=False, allow_blank=True, max_length=100)
@@ -36,15 +36,15 @@ class SnippetSerializerVerbose(serializers.Serializer):
 	style = serializers.ChoiceField(choices=STYLE_CHOICES, default='friendly')
 
 	def create(self, validated_data):
-		"""
+		"" "
 		Create and return a new `Snippet` instance, given the validated data
-		"""
+		"" "
 		return Snippets.objects.create(**validated_data)
 
 	def update(self, instance, validated_data):
-		"""
+		"" "
 		Update and return an existing `Snippet` instance, given the validated data
-		"""
+		"" "
 		instance.title=validated_data.get('title', instance.title)
 		instance.code = validated_data.get('code', instance.code)
 		instance.linenos = validated_data.get('linenos', instance.linenos)
@@ -52,12 +52,12 @@ class SnippetSerializerVerbose(serializers.Serializer):
 		instance.style = validated_data.get('style', instance.style)
 		instance.save()
 		return instance
-
+"""
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
 	owner = serializers.ReadOnlyField(source='owner.username')
 	highlight = serializers.HyperlinkedIdentityField(
-			view_name='snippet-highlight',
+			view_name='snippets-highlight',
 			format='html'
 	)
 
